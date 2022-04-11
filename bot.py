@@ -1,8 +1,9 @@
 import discord, boto3
+from datetime import datetime
 
 client = discord.Client()
 ec2 = boto3.resource('ec2')
-instance = ec2.Instance('i-0f0daab95610b4938')
+instance = ec2.Instance('i-0e6ff57556852d6c2')
 
 @client.event
 async def on_ready():
@@ -11,7 +12,7 @@ async def on_ready():
     print(client.user.id)
     print('------------')
     channel_admin = client.get_channel(959872101869826079)
-    await channel_admin.send(" Bot Online")
+    await channel_admin.send(str(datetime.now())+": Bot Online [AWS]")
 
 
 @client.event
