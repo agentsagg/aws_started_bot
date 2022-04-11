@@ -1,5 +1,6 @@
 import discord, boto3
 from datetime import datetime
+import time
 
 client = discord.Client()
 ec2 = boto3.resource('ec2')
@@ -18,6 +19,9 @@ async def on_ready():
 @client.event
 async def on_message(message):
     if message.content.lower() == "!stop":
+        channel_admin = client.get_channel(959872101869826079)
+        await message.channel.send('stop')
+        time.sleep(60)
         if turnOffInstance():
             await message.channel.send('AWS Instance stopping')
         else:
