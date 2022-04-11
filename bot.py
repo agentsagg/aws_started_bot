@@ -17,20 +17,20 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    if message.content.lower() == "stop":
+    if message.content.lower() == "!stop":
         if turnOffInstance():
             await message.channel.send('AWS Instance stopping')
         else:
             await message.channel.send('Error stopping AWS Instance')
-    elif message.content.lower() == "start":
+    elif message.content.lower() == "!start":
         if turnOnInstance():
             await message.channel.send('AWS Instance starting')
         else:
             await message.channel.send('Error starting AWS Instance')
-    elif message.content.lower() == "state":
+    elif message.content.lower() == "!state":
         if getInstanceState():
             await message.channel.send('AWS Instance state is: ' + getInstanceState())
-    elif message.content.lower() == "reboot":
+    elif message.content.lower() == "!reboot":
         if rebootInstance():
             await message.channel.send('AWS Instance rebooting')
         else:
