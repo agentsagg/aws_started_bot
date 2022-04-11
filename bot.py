@@ -1,12 +1,17 @@
-import discord, boto3
+import discord, boto3, time
 from datetime import datetime
-import time
+
 
 client = discord.Client()
 ec2 = boto3.resource('ec2')
 instance = ec2.Instance('i-0e6ff57556852d6c2')
 
-@client.event
+def get_ip():
+    Myec2=boto3.client('ec2').describe_instances()
+    for pythonins in Myec2['Reservations']:
+        for printout in pythonins['Instances']:
+            return str(printout['PublicIpAddress'])
+            
 async def on_ready():
     print('Logged in as')
     print(client.user.name)
@@ -21,16 +26,16 @@ async def on_message(message):
     if message.content.lower() == "!stop":
         channel_admin = client.get_channel(959872101869826079)
         await channel_admin.send('stop')
-        time.sleep(30)
+        time.sleep(10)
         if turnOffInstance():
             await message.channel.send('AWS Instance stopping')
         else:
             await message.channel.send('Error stopping AWS Instance')
     elif message.content.lower() == "!start":
         if turnOnInstance():
-            await message.channel.send('AWS Instance starting')
+            await message.channel.send('Minecraft Server is Starting in 2 mins\nIP:'+get_ip())
         else:
-            await message.channel.send('Error starting AWS Instance')
+            await message.channel.send('Error starting Minecraft Server')
     elif message.content.lower() == "!state":
         if getInstanceState():
             await message.channel.send('AWS Instance state is: ' + getInstanceState())
