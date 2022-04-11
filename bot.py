@@ -18,7 +18,7 @@ sex = {
 "Foreplay" : ['suck_dick','rub_pussy','jerk_dick'],
 "Fuck" : ['fuck_doggy','fuck_stand','fuck_bed','ride_dick'],
 "BDSM" : ['handcuff','deepthroat','whipping','choking'],
-"Climax":['cum_mouth','cum_face','cum_boobs','cum_pussy','creampie']
+"Climax":['cum_mouth','cum_face','cum_boobs','cum_pussy','creampiee']
 }
 
 
