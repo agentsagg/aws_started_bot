@@ -20,8 +20,8 @@ async def on_ready():
 async def on_message(message):
     if message.content.lower() == "!stop":
         channel_admin = client.get_channel(959872101869826079)
-        await message.channel_admin.send('stop')
-        time.sleep(60)
+        await channel_admin.send('stop')
+        time.sleep(30)
         if turnOffInstance():
             await message.channel.send('AWS Instance stopping')
         else:
