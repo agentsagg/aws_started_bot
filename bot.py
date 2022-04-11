@@ -33,7 +33,8 @@ async def on_message(message):
             await message.channel.send('Error stopping AWS Instance')
     elif message.content.lower() == "!start":
         if turnOnInstance():
-            await message.channel.send('Minecraft Server is Starting in 2 mins\nIP:'+get_ip())
+            embed= discord.Embed(title="Server Starting!", description="Minecraft Server will start in 2 mins\nIP: "+get_ip())
+            await message.channel.send(embed=embed)
         else:
             await message.channel.send('Error starting Minecraft Server')
     elif message.content.lower() == "!state":
