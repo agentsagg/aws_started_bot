@@ -23,20 +23,27 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    if message.content.lower() == "!stop":
+    if message.content.lower() == "!sagg":
+        print(message.channel.topic)
+        await message.channel.send(message.channel.topic)
+
+    elif message.content.lower() == "!stop":
         channel_admin = client.get_channel(959872101869826079)
         await channel_admin.send('stop')
         time.sleep(10)
         if turnOffInstance():
-            await message.channel.send('AWS Instance stopping')
+            embed= discord.Embed(title="Server Stopoing!", description="Minecraft Server will stop now.")
+            await message.channel.send(embed=embed)
         else:
-            await message.channel.send('Error stopping AWS Instance')
+            embed= discord.Embed(title="Error!", description="Error stopping the server")
+            await message.channel.send(embed=embed)
     elif message.content.lower() == "!start":
         if turnOnInstance():
             embed= discord.Embed(title="Server Starting!", description="Minecraft Server will start in 2 mins\nIP: "+get_ip())
             await message.channel.send(embed=embed)
         else:
-            await message.channel.send('Error starting Minecraft Server')
+            embed= discord.Embed(title="Error!", description="Error starting the server")
+            await message.channel.send(embed=embed)
     elif message.content.lower() == "!state":
         if getInstanceState():
             await message.channel.send('AWS Instance state is: ' + getInstanceState())
