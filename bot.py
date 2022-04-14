@@ -10,6 +10,7 @@ instance = ec2.Instance('i-0e6ff57556852d6c2')
 start_time = time.time()
 joined = 0
 left = 0
+started = 0
 def get_ip():
     Myec2=boto3.client('ec2').describe_instances()
     while(Myec2['Reservations'][0]['Instances'][0]['State']['Name'] != 'running'):
@@ -29,13 +30,15 @@ async def on_ready():
 
 @tasks.loop(seconds = 10) # repeat after every 10 seconds
 async def myLoop():
+    global started
     Myec2=boto3.client('ec2').describe_instances()
     channel_gen = client.get_channel(954059340006965320)
-    if joined==left and time.time()-start_time>200 and Myec2['Reservations'][0]['Instances'][0]['State']['Name'] == 'running':
+    if joined==left and time.time()-start_time>200 and Myec2['Reservations'][0]['Instances'][0]['State']['Name'] == 'running' and started ==1:
         channel_admin = client.get_channel(959872101869826079)
         await channel_admin.send('stop')
         time.sleep(10)
         if turnOffInstance():
+            started =0
             embed= discord.Embed(title="Server Idle!", description="No Players Minecraft.\nServer will stop now.")
             await channel_gen.send(embed=embed)
         else:
@@ -49,7 +52,7 @@ async def myLoop():
 
 @client.event
 async def on_message(message):
-    global start_time, joined, left
+    global start_time, joined, left, started
     if (message.content.lower().__contains__( "joined the game")):
         joined+=1
         start_time= time.time()
@@ -61,6 +64,7 @@ async def on_message(message):
         await channel_admin.send('stop')
         time.sleep(10)
         if turnOffInstance():
+            started =0
             embed= discord.Embed(title="Server Stopping!", description="Minecraft Server will stop now.")
             await message.channel.send(embed=embed)
         else:
@@ -72,6 +76,7 @@ async def on_message(message):
             start_time= time.time()
             joined = 0
             left = 0
+            started = 1
             await message.channel.send(embed=embed)
         else:
             embed= discord.Embed(title="Error!", description="Error. Try again in few seconds.")
