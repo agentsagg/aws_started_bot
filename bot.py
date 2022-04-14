@@ -70,6 +70,8 @@ async def on_message(message):
         if turnOnInstance():
             embed= discord.Embed(title="Server Starting!", description="Minecraft Server will start in 2 mins\nIP: "+get_ip())
             start_time= time.time()
+            joined = 0
+            left = 0
             await message.channel.send(embed=embed)
         else:
             embed= discord.Embed(title="Error!", description="Error. Try again in few seconds.")
