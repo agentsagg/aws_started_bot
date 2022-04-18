@@ -38,7 +38,9 @@ async def myLoop():
         await channel_admin.send('stop')
         time.sleep(10)
         if turnOffInstance():
-            started =0
+            joined = 0
+            left = 0
+            started = 0
             embed= discord.Embed(title="Server Idle!", description="No Players Minecraft.\nServer will stop now.")
             await channel_gen.send(embed=embed)
         else:
@@ -64,7 +66,9 @@ async def on_message(message):
         await channel_admin.send('stop')
         time.sleep(10)
         if turnOffInstance():
-            started =0
+            joined = 0
+            left = 0
+            started = 0
             embed= discord.Embed(title="Server Stopping!", description="Minecraft Server will stop now.")
             await message.channel.send(embed=embed)
         else:
